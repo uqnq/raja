@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJA - Kisah Para Raja dan Kerajaan</title>
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f5e6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f5e6"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23e8e0c9" stroke-width="1"/></svg>');
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+            color: #f1c27d;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            margin-left: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #ffd700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            color: #f1c27d;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            color: #ffd700;
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(101, 67, 33, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%238b4513"/><path d="M0,300 Q300,150 600,300 T1200,300" fill="%23654321" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: #f8f5e6;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 8px solid #654321;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ffd700;
+            color: #654321;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid #ffd700;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: #ffd700;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .article {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #8b4513;
+        }
+        
+        .article h2 {
+            color: #8b4513;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f1c27d;
+        }
+        
+        .article p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar h3 {
+            color: #8b4513;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f1c27d;
+        }
+        
+        .featured-list {
+            list-style: none;
+        }
+        
+        .featured-list li {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #e8e0c9;
+        }
+        
+        .featured-list a {
+            color: #654321;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .featured-list a:hover {
+            color: #8b4513;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            margin-bottom: 3rem;
+        }
+        
+        .gallery h2 {
+            text-align: center;
+            color: #8b4513;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-img {
+            height: 180px;
+            background: #e8e0c9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b4513;
+            font-weight: bold;
+        }
+        
+        .gallery-caption {
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #654321 0%, #8b4513 100%);
+            color: #f1c27d;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #f1c27d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(241, 194, 125, 0.3);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 0.5rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">👑</span>
+                    <h1>RAJA</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Sejarah</a></li>
+                        <li><a href="#">Raja-raja</a></li>
+                        <li><a href="#">Kerajaan</a></li>
+                        <li><a href="#">Artefak</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Selamat Datang di Dunia Para Raja</h2>
+            <p>Jelajahi kisah-kisah epik tentang raja-raja, kerajaan-kerajaan megah, dan warisan sejarah yang mengagumkan dari berbagai penjuru dunia.</p>
+            <a href="#" class="btn">Jelajahi Sekarang</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="main-content">
+            <article class="article">
+                <h2>Warisan Kerajaan: Kisah Para Raja yang Membentuk Peradaban</h2>
+                <p>Sejarah peradaban manusia tidak dapat dipisahkan dari kisah para raja dan kerajaan yang pernah berjaya. Dari lembah Sungai Nil hingga nusantara, dari Eropa abad pertengahan hingga dinasti-dinasti Asia, para penguasa ini telah meninggalkan warisan yang masih dapat kita saksikan hingga hari ini.</p>
+                
+                <p>Kerajaan-kerajaan besar seperti Majapahit di Nusantara, Kekaisaran Romawi di Eropa, Dinasti Ming di China, atau Kekaisaran Mali di Afrika, semuanya memiliki cerita unik tentang bagaimana mereka bangkit, mencapai puncak kejayaan, dan akhirnya mengalami kemunduran. Kisah-kisah ini tidak hanya tentang kekuasaan dan penaklukan, tetapi juga tentang seni, budaya, arsitektur, dan sistem pemerintahan yang mereka kembangkan.</p>
+                
+                <p>Raja-raja legendaris seperti Hayam Wuruk dari Majapahit, Ramses II dari Mesir Kuno, atau Charlemagne dari Kekaisaran Romawi Suci, telah menjadi simbol kekuasaan dan kebijaksanaan. Mereka bukan hanya pemimpin politik, tetapi juga pelindung seni, ilmu pengetahuan, dan agama. Di bawah pemerintahan mereka, berkembanglah karya sastra, arsitektur megah, dan sistem hukum yang menjadi fondasi bagi masyarakat modern.</p>
+                
+                <p>Kerajaan-kerajaan kuno juga meninggalkan warisan arsitektur yang mengagumkan. Candi Borobudur dan Prambanan di Indonesia, Piramida Giza di Mesir, Tembok Besar China, atau istana-istana megah di Eropa, semuanya adalah bukti nyata dari kemajuan peradaban di bawah pemerintahan kerajaan. Bangunan-bangunan ini tidak hanya menunjukkan kemampuan teknik yang luar biasa, tetapi juga mencerminkan nilai-nilai spiritual dan kosmologi masyarakat pada masa itu.</p>
+                
+                <p>Selain warisan fisik, kerajaan-kerajaan juga meninggalkan sistem pemerintahan, hukum, dan administrasi yang mempengaruhi bentuk negara modern. Konsep birokrasi, sistem pajak, diplomasi internasional, dan bahkan beberapa prinsip demokrasi telah dikembangkan dalam berbagai kerajaan kuno. Pemahaman tentang sistem ini membantu kita memahami akar dari institusi politik yang kita miliki saat ini.</p>
+                
+                <p>Melalui situs RAJA ini, kami mengajak Anda untuk menjelajahi warisan sejarah yang kaya ini. Dari kisah-kisah epik tentang pertempuran dan penaklukan, hingga cerita tentang kehidupan sehari-hari di istana kerajaan, semuanya menanti untuk ditemukan. Mari kita bersama-sama menghargai dan mempelajari warisan para raja yang telah membentuk dunia seperti yang kita kenal sekarang.</p>
+            </article>
+            
+            <aside class="sidebar">
+                <h3>Artikel Terpopuler</h3>
+                <ul class="featured-list">
+                    <li><a href="#">10 Raja Terhebat dalam Sejarah Nusantara</a></li>
+                    <li><a href="#">Misteri Hilangnya Kerajaan Sriwijaya</a></li>
+                    <li><a href="#">Mahkota Emas: Simbol Kekuasaan Raja-raja Jawa</a></li>
+                    <li><a href="#">Peninggalan Arsitektur Kerajaan Mughal di India</a></li>
+                    <li><a href="#">Sistem Pemerintahan Kerajaan Majapahit</a></li>
+                </ul>
+                
+                <h3>Kerajaan yang Sedang Dibahas</h3>
+                <ul class="featured-list">
+                    <li><a href="#">Majapahit</a></li>
+                    <li><a href="#">Sriwijaya</a></li>
+                    <li><a href="#">Kutai</a></li>
+                    <li><a href="#">Tarumanegara</a></li>
+                    <li><a href="#">Mataram Kuno</a></li>
+                </ul>
+            </aside>
+        </div>
+        
+        <section class="gallery">
+            <h2>Galeri Kerajaan</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-img">Mahkota Raja</div>
+                    <div class="gallery-caption">Mahkota Emas Kerajaan</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">Istana Kerajaan</div>
+                    <div class="gallery-caption">Arsitektur Istana Megah</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">Prasasti Kuno</div>
+                    <div class="gallery-caption">Prasasti Peninggalan Raja</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">Senjata Tradisional</div>
+                    <div class="gallery-caption">Senjata Kerajaan</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tentang RAJA</h3>
+                    <p>Situs RAJA adalah portal informasi tentang sejarah kerajaan, raja-raja, dan warisan budaya yang terkait dari seluruh dunia.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Kategori</h3>
+                    <ul>
+                        <li><a href="#">Raja-raja Nusantara</a></li>
+                        <li><a href="#">Kerajaan Dunia</a></li>
+                        <li><a href="#">Artefak Kerajaan</a></li>
+                        <li><a href="#">Sejarah Dinasti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontak Kami</h3>
+                    <ul>
+                        <li>Email: info@raja.com</li>
+                        <li>Telepon: (021) 1234-5678</li>
+                        <li>Alamat: Jl. Sejarah No. 123, Jakarta</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 RAJA - Kisah Para Raja dan Kerajaan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
